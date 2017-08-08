@@ -22,14 +22,23 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-Blog.create({
-    
-});
-
-
 //RESTFUL ROUTES
 
+app.get("/", function(req, res){
+    res.redirect("/genres");
+});
 
+app.get("/genres", function(req, res){
+ 
+  Blog.find({},function(err, genres){
+      if(err){
+          console.log(err);
+      }
+      else{
+       res.render("index", {genres : genres});   
+      }
+  })
+});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is running!");
