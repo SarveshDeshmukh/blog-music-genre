@@ -1,0 +1,10 @@
+<h1>Index Page</h1>
+
+<% genres.forEach(function(genre){ %>
+    <div>
+        <h2> <%= genre.title %></h2>
+        <img src = " <%= genre.image %>">
+        <span><%= genre.created %></span>
+        <p> <%=genre.body %></p>
+    </div>
+<% }); %>
