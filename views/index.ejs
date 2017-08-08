@@ -1,3 +1,4 @@
+<% include ./partials/header %>
 <h1>Index Page</h1>
 
 <% genres.forEach(function(genre){ %>
@@ -8,3 +9,5 @@
         <p> <%=genre.body %></p>
     </div>
 <% }); %>
+
+<% include ./partials/footer %>
