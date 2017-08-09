@@ -6,7 +6,8 @@
         <h2> <%= genre.title %></h2>
         <img src = " <%= genre.image %>">
         <span><%= genre.created %></span>
-        <p> <%=genre.body %></p>
+        <p><%= genre.body.substring(0,100) %>...</p>
+        <a href="/genres/<%= genre._id  %> ">Read More</a> 
     </div>
 <% }); %>
 
