@@ -28,6 +28,8 @@ app.get("/", function(req, res){
     res.redirect("/genres");
 });
 
+
+//INDEX ROUTE
 app.get("/genres", function(req, res){
  
   Blog.find({},function(err, genres){
@@ -38,6 +40,27 @@ app.get("/genres", function(req, res){
        res.render("index", {genres : genres});   
       }
   })
+});
+
+//NEW ROUTE
+app.get("/genres/new", function(req, res){
+    res.render("new");
+});
+
+//CREATE ROUTE
+
+app.post("/genres", function(req, res){
+    //Create genre
+    Blog.create(req.body.genre, function(err, newGenre){
+       if(err){
+           res.render("new");
+       } 
+       else{
+           res.redirect("/genres");
+       }
+    })
+    //Redirect
+    
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
