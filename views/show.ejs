@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+<div class="ui main container segment">
+    <div class="ui huge header"><%= foundGenre.title %></div>
+    <div class="ui items">
+        <div class="videoContainer">
+          <iframe class="video" src="https://www.youtube.com/embed/<%= foundGenre.video %>"
+         frameborder="0" allowfullscreen></iframe>
+        </div>
+      <div class="item">
+        <div class="content">
+          <span class ="created">
+            Blog created on: <%=foundGenre.created.toDateString() %> 
+          </span>
+          <div class="description">
+            <p><%- foundGenre.body %> </p>
+          </div>
+        </div>
+      </div>
+    <div>  
+</div>
+<% include ./partials/footer %>
