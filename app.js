@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 var blogSchema = new mongoose.Schema({
     title: String,
     image: String,
-    body: String,
+    video: String,
+    body : String,
     created :{
                 type: Date, 
                 default: Date.now()
@@ -50,6 +51,10 @@ app.get("/genres/new", function(req, res){
 //CREATE ROUTE
 
 app.post("/genres", function(req, res){
+    
+    var urlToEmbed = getId( req.body.genre.video);
+    console.log(urlToEmbed);
+    req.body.genre.video = urlToEmbed;
     //Create genre
     Blog.create(req.body.genre, function(err, newGenre){
        if(err){
@@ -62,6 +67,32 @@ app.post("/genres", function(req, res){
     //Redirect
     
 });
+
+//SHOW ROUTE
+
+app.get("/genres/:id", function(req, res){
+
+    Blog.findById(req.params.id, function(err, foundGenre){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("show",{foundGenre : foundGenre});
+        }
+    })
+});
+
+
+function getId(url) {
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+        return match[2];
+    } else {
+        return 'error';
+    }
+}
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is running!");
