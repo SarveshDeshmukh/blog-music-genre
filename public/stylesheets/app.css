@@ -21,6 +21,20 @@ img{
     height:20%;
     width: 20%;
 }
+.delete-button{
+    margin-top:2em;
+    display:inline;
+}
+.ui.items>.item>.content p:last-child {
+    margin-bottom: 0;
+    font-size: 1.1em;
+    margin-top: 2em;
+    
+}
+
+.delete-edit{
+    margin-top: 1.5em;
+}
 
 .ui.huge.header{
     text-align:center;
@@ -28,4 +42,8 @@ img{
 
 .content:first-child{
     margin-bottom:50px;
+}
+.created{
+    font-style:italic;
+    font-weight: bold
 }
