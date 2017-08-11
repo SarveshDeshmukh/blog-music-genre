@@ -106,6 +106,19 @@ app.put("/genres/:id", function(req, res){
         }
     });
 });
+
+//DELETE ROUTE
+app.delete("/genres/:id", function(req, res){
+   //destroy genre 
+   Blog.findByIdAndRemove(req.params.id, function(err){
+       if(err){
+           res.redirect("/genres");
+       }else{
+           res.redirect("/genres");
+       }
+   });
+
+});
         
 //Function to get the link for youtube iframe embed.
 function getId(url) {
