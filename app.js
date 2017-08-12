@@ -1,15 +1,18 @@
 var express    = require("express"),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose");
-    app        = express();
+    mongoose   = require("mongoose"),
+    app        = express(),
+    expressSanitizer = require("express-sanitizer"),
     methodOverride = require("method-override");
- 
+    
  //APP CONFIG   
 mongoose.connect("mongodb://localhost/musicGenreBlog",{useMongoClient : true});
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer()); //This must go after body-parser
 app.use(methodOverride("_method"));
+
 
 // MONGOOSE/MODEL CONFIG
 var blogSchema = new mongoose.Schema({
@@ -54,7 +57,9 @@ app.get("/genres/new", function(req, res){
 //CREATE ROUTE
 
 app.post("/genres", function(req, res){
-    
+
+    req.body.genre.body = req.sanitize(req.body.genre.body);
+
     var urlToEmbed = getId( req.body.genre.video);
     req.body.genre.videoEmbedLink = urlToEmbed;
     //Create genre
@@ -84,6 +89,8 @@ app.get("/genres/:id", function(req, res){
 
 //EDIT ROUTE
 app.get("/genres/:id/edit", function(req, res){
+    
+    
     Blog.findById(req.params.id, function(err, foundGenre){
         if(err){
             res.redirect("/genres");
@@ -94,14 +101,17 @@ app.get("/genres/:id/edit", function(req, res){
     });
 });
 
-//PUT ROUTE 
+//UPDATE ROUTE
 
 app.put("/genres/:id", function(req, res){
-    console.log("here in put")
+    //Hit the put method
+    req.body.genre.body = req.sanitize(req.body.genre.body);
     Blog.findByIdAndUpdate(req.params.id, req.body.genre, function(err, updatedBlog){
         if(err){
+            
             res.redirect("/genres");
         }else{
+            //here in else part of update
             res.redirect("/genres/"+req.params.id);
         }
     });
