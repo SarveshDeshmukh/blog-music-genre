@@ -1,14 +1,34 @@
 <% include ./partials/header %>
-<h1>Index Page</h1>
 
-<% genres.forEach(function(genre){ %>
-    <div>
-        <h2> <%= genre.title %></h2>
-        <img src = " <%= genre.image %>">
-        <span><%= genre.created %></span>
-        <p><%= genre.body.substring(0,100) %>...</p>
-        <a href="/genres/<%= genre._id  %> ">Read More</a> 
-    </div>
-<% }); %>
+<div class="ui text container main">
+   	<div class="ui huge header">Music Genres</div>
+    <div class="ui top attached segment">
+<div class="ui divided items">
+	<% genres.forEach(function(genre){ %>
+	 <div class="item">
+	    <div class="image">
+	      <img src="<%= genre.image %>">
+	    </div>
+	    <div class="content">
+	      <a class="header" href="/genres/<%=genre._id%>"><%= genre.title %></a>
+	      <div class="meta">
+	        <span class="cinema"><%= genre.created.toDateString() %></span>
+	      </div>
+	      <div class="description">
+	        <p><%= genre.body.substring(0,100); %>...</p>
+	      </div>
+	      <div class="extra">
+	        <a href="/genres/<%=genre._id %>" class="ui floated basic violet button">
+	          Read More
+	          <i class="right chevron icon"></i>
+	        </a>
+	      </div>
+	    </div>
+	  </div>
+	<% }); %>
+</div>
+</div>
+    
+  </div>
 
 <% include ./partials/footer %>
